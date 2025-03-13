@@ -17,6 +17,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: thingsboard
+  name: thingboard-dev
   labels:
-    name: thingsboard
+    name: thingboard-dev

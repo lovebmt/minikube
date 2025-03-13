@@ -18,7 +18,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tb-node
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   serviceName: tb-node
   replicas: 1
@@ -47,7 +47,7 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-node:3.8.1
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
           name: http
         - containerPort: 9090
           name: rpc
@@ -94,11 +94,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tb-node
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   type: ClusterIP
   selector:
     app: tb-node
   ports:
-  - port: 8080
+  - port: 8081
     name: http

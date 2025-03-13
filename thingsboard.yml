@@ -18,7 +18,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tb-js-executor
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   replicas: 5
   selector:
@@ -64,7 +64,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tb-mqtt-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   serviceName: "tb-mqtt-transport"
   podManagementPolicy: Parallel
@@ -135,7 +135,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tb-mqtt-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   type: ClusterIP
   selector:
@@ -148,7 +148,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tb-http-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   serviceName: "tb-http-transport"
   podManagementPolicy: Parallel
@@ -175,7 +175,7 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-http-transport:3.8.1
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
           name: http
         env:
         - name: TB_SERVICE_ID
@@ -185,7 +185,7 @@ spec:
         - name: HTTP_BIND_ADDRESS
           value: "0.0.0.0"
         - name: HTTP_BIND_PORT
-          value: "8080"
+          value: "8081"
         - name: HTTP_REQUEST_TIMEOUT
           value: "60000"
         envFrom:
@@ -199,12 +199,12 @@ spec:
         readinessProbe:
           periodSeconds: 20
           tcpSocket:
-            port: 8080
+            port: 8081
         livenessProbe:
           initialDelaySeconds: 120
           periodSeconds: 20
           tcpSocket:
-            port: 8080
+            port: 8081
   volumeClaimTemplates:
     - metadata:
         name: logs
@@ -219,20 +219,20 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tb-http-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   type: ClusterIP
   selector:
     app: tb-http-transport
   ports:
-  - port: 8080
+  - port: 8081
     name: http
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tb-coap-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   serviceName: "tb-coap-transport"
   podManagementPolicy: Parallel
@@ -295,7 +295,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tb-coap-transport
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   type: LoadBalancer
   selector:
@@ -309,7 +309,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tb-web-ui
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   replicas: 1
   selector:
@@ -325,13 +325,13 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-web-ui:3.8.1
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
           name: http
         env:
         - name: HTTP_BIND_ADDRESS
           value: "0.0.0.0"
         - name: HTTP_BIND_PORT
-          value: "8080"
+          value: "8081"
         - name: TB_ENABLE_PROXY
           value: "false"
         - name: LOGGER_LEVEL
@@ -356,12 +356,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tb-web-ui
-  namespace: thingsboard
+  namespace: thingboard-dev
 spec:
   type: ClusterIP
   selector:
     app: tb-web-ui
   ports:
-  - port: 8080
+  - port: 8081
     name: http
 ---
