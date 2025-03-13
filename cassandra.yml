@@ -73,7 +73,7 @@ spec:
           name: tls-intra-node
         - containerPort: 7199
           name: jmx
-        - containerPort: 9042
+        - containerPort: 9043
           name: cql
         - containerPort: 9160
           name: thrift
@@ -145,7 +145,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-    - port: 9042
+    - port: 9043
   selector:
     app: cassandra
 ---

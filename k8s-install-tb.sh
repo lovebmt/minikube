@@ -60,6 +60,16 @@ function installCassandra() {
                     };\""
 }
 
+function updatePorts() {
+    instance=$1
+
+    sed -i "s/9042/$(expr 9042 + $instance)/g" cassandra.yml
+    sed -i "s/5432/$(expr 5432 + $instance)/g" postgres.yml
+    sed -i "s/8081/$(expr 8081 + $instance)/g" thingsboard.yml
+    sed -i "s/1883/$(expr 1883 + $instance)/g" thingsboard.yml
+    sed -i "s/5683/$(expr 5683 + $instance)/g" thingsboard.yml
+}
+
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -67,6 +77,10 @@ key="$1"
 case $key in
     --loadDemo)
     LOAD_DEMO=true
+    shift # past argument
+    ;;
+    --instance=*)
+    INSTANCE="${key#*=}"
     shift # past argument
     ;;
     *)
@@ -82,11 +96,17 @@ else
     loadDemo=false
 fi
 
+if [ -z "$INSTANCE" ]; then
+    INSTANCE=0
+fi
+
 source .env
 
 kubectl apply -f tb-namespace.yml || echo
 kubectl config set-context $(kubectl config current-context) --namespace=thingboard-dev
 kubectl apply -f thirdparty.yml
+
+updatePorts $INSTANCE
 
 case $DATABASE in
         postgres)
