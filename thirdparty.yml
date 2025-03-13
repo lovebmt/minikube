@@ -34,9 +34,9 @@ data:
     syncLimit=2
     maxClientCnxns=200
     standaloneEnabled=true
-    server.0=zookeeper-0.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2181
-    server.1=zookeeper-1.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2181
-    server.2=zookeeper-2.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2181
+    server.0=zookeeper-0.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
+    server.1=zookeeper-1.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
+    server.2=zookeeper-2.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
   log4j.properties: |+
     zookeeper.root.logger=INFO, CONSOLE
     zookeeper.console.threshold=INFO
@@ -68,7 +68,7 @@ spec:
           imagePullPolicy: Always
           image: zookeeper:3.5.7
           ports:
-            - containerPort: 2181
+            - containerPort: 2182
               name: client
             - containerPort: 2888
               name: server
@@ -78,11 +78,11 @@ spec:
           readinessProbe:
             periodSeconds: 60
             tcpSocket:
-              port: 2181
+              port: 2182
           livenessProbe:
             periodSeconds: 60
             tcpSocket:
-              port: 2181
+              port: 2182
           env:
             - name: JVMFLAGS
               value: "-Dzookeeper.electionPortBindRetry=0"
@@ -129,8 +129,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 2181
-      targetPort: 2181
+    - port: 2182
+      targetPort: 2182
       name: client
     - port: 2888
       targetPort: 2888
@@ -150,8 +150,8 @@ metadata:
     app: zookeeper
 spec:
   ports:
-    - port: 2181
-      targetPort: 2181
+    - port: 2182
+      targetPort: 2182
       name: client
     - port: 2888
       targetPort: 2888
@@ -235,7 +235,7 @@ spec:
             - name: BROKER_ID_COMMAND
               value: "hostname | cut -d'-' -f3"
             - name: KAFKA_ZOOKEEPER_CONNECT
-              value: "zookeeper:2181"
+              value: "zookeeper:2182"
             - name: KAFKA_LISTENERS
               value: "INSIDE://:9093"
             - name: KAFKA_ADVERTISED_LISTENERS
