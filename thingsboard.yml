@@ -91,7 +91,7 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-mqtt-transport:3.8.1
         ports:
-        - containerPort: 1883
+        - containerPort: 1884
           name: mqtt
         env:
         - name: TB_SERVICE_ID
@@ -101,7 +101,7 @@ spec:
         - name: MQTT_BIND_ADDRESS
           value: "0.0.0.0"
         - name: MQTT_BIND_PORT
-          value: "1883"
+          value: "1884"
         - name: MQTT_TIMEOUT
           value: "10000"
         envFrom:
@@ -115,12 +115,12 @@ spec:
         readinessProbe:
           periodSeconds: 20
           tcpSocket:
-            port: 1883
+            port: 1884
         livenessProbe:
           initialDelaySeconds: 120
           periodSeconds: 20
           tcpSocket:
-            port: 1883
+            port: 1884
   volumeClaimTemplates:
     - metadata:
         name: logs
@@ -141,7 +141,7 @@ spec:
   selector:
     app: tb-mqtt-transport
   ports:
-  - port: 1883
+  - port: 1884
     name: mqtt
 ---
 apiVersion: apps/v1
@@ -175,7 +175,7 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-http-transport:3.8.1
         ports:
-        - containerPort: 8081
+        - containerPort: 8082
           name: http
         env:
         - name: TB_SERVICE_ID
@@ -185,7 +185,7 @@ spec:
         - name: HTTP_BIND_ADDRESS
           value: "0.0.0.0"
         - name: HTTP_BIND_PORT
-          value: "8081"
+          value: "8082"
         - name: HTTP_REQUEST_TIMEOUT
           value: "60000"
         envFrom:
@@ -199,12 +199,12 @@ spec:
         readinessProbe:
           periodSeconds: 20
           tcpSocket:
-            port: 8081
+            port: 8082
         livenessProbe:
           initialDelaySeconds: 120
           periodSeconds: 20
           tcpSocket:
-            port: 8081
+            port: 8082
   volumeClaimTemplates:
     - metadata:
         name: logs
@@ -225,7 +225,7 @@ spec:
   selector:
     app: tb-http-transport
   ports:
-  - port: 8081
+  - port: 8082
     name: http
 ---
 apiVersion: apps/v1
@@ -259,7 +259,7 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-coap-transport:3.8.1
         ports:
-        - containerPort: 5683
+        - containerPort: 5684
           name: coap
           protocol: UDP
         env:
@@ -270,7 +270,7 @@ spec:
         - name: COAP_BIND_ADDRESS
           value: "0.0.0.0"
         - name: COAP_BIND_PORT
-          value: "5683"
+          value: "5684"
         - name: COAP_TIMEOUT
           value: "10000"
         envFrom:
@@ -301,7 +301,7 @@ spec:
   selector:
     app: tb-coap-transport
   ports:
-  - port: 5683
+  - port: 5684
     name: coap
     protocol: UDP
 ---
@@ -325,13 +325,13 @@ spec:
         imagePullPolicy: Always
         image: thingsboard/tb-web-ui:3.8.1
         ports:
-        - containerPort: 8081
+        - containerPort: 8082
           name: http
         env:
         - name: HTTP_BIND_ADDRESS
           value: "0.0.0.0"
         - name: HTTP_BIND_PORT
-          value: "8081"
+          value: "8082"
         - name: TB_ENABLE_PROXY
           value: "false"
         - name: LOGGER_LEVEL
@@ -362,6 +362,6 @@ spec:
   selector:
     app: tb-web-ui
   ports:
-  - port: 8081
+  - port: 8082
     name: http
 ---
