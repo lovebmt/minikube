@@ -85,7 +85,7 @@ fi
 source .env
 
 kubectl apply -f tb-namespace.yml || echo
-kubectl config set-context $(kubectl config current-context) --namespace=thingsboard
+kubectl config set-context $(kubectl config current-context) --namespace=thingboard-dev
 kubectl apply -f thirdparty.yml
 
 case $DATABASE in
@@ -102,4 +102,3 @@ case $DATABASE in
         echo "Unknown DATABASE value specified: '${DATABASE}'. Should be either postgres or hybrid." >&2
         exit 1
 esac
-

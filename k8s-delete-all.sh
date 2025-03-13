@@ -17,6 +17,6 @@
 
 source .env
 
-kubectl -n thingsboard delete svc,sts,deploy,cm,po,ing --all
+kubectl -n thingboard-dev delete svc,sts,deploy,cm,po,ing --all
 
-kubectl -n thingsboard get pvc --no-headers=true | awk '//{print $1}' | xargs kubectl -n thingsboard delete --ignore-not-found=true pvc
+kubectl -n thingboard-dev get pvc --no-headers=true | awk '//{print $1}' | xargs kubectl -n thingboard-dev delete --ignore-not-found=true pvc

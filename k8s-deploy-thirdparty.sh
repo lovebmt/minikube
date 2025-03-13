@@ -19,6 +19,6 @@ set -e
 
 source .env
 
-kubectl config set-context $(kubectl config current-context) --namespace=thingsboard
+kubectl config set-context $(kubectl config current-context) --namespace=thingboard-dev
 
 kubectl apply -f thirdparty.yml
