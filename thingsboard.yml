@@ -20,7 +20,7 @@ metadata:
   name: tb-js-executor
   namespace: thingboard-dev
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: tb-js-executor
@@ -137,12 +137,15 @@ metadata:
   name: tb-mqtt-transport
   namespace: thingboard-dev
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: tb-mqtt-transport
   ports:
   - port: 1884
     name: mqtt
+    targetPort: 1884 # The port on the pod
+    nodePort: 31884  # The port exposed on each node (optional; can let Kubernetes choose)
+
 ---
 apiVersion: apps/v1
 kind: StatefulSet

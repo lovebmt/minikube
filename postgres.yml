@@ -53,7 +53,7 @@ spec:
         imagePullPolicy: Always
         image: postgres:12
         ports:
-        - containerPort: 5433
+        - containerPort: 5432
           name: postgres
         env:
         - name: POSTGRES_DB
@@ -97,6 +97,6 @@ spec:
   selector:
     app: postgres
   ports:
-  - port: 5433
+  - port: 5432
     name: postgres
 ---

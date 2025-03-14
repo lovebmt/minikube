@@ -34,9 +34,9 @@ data:
     syncLimit=2
     maxClientCnxns=200
     standaloneEnabled=true
-    server.0=zookeeper-0.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
-    server.1=zookeeper-1.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
-    server.2=zookeeper-2.zookeeper-headless.thingsboard.svc.cluster.local:2888:3888;2182
+    server.0=zookeeper-0.zookeeper-headless.thingboard-dev.svc.cluster.local:2889:3889;2182
+    server.1=zookeeper-1.zookeeper-headless.thingboard-dev.svc.cluster.local:2889:3889;2182
+    server.2=zookeeper-2.zookeeper-headless.thingboard-dev.svc.cluster.local:2889:3889;2182
   log4j.properties: |+
     zookeeper.root.logger=INFO, CONSOLE
     zookeeper.console.threshold=INFO
@@ -70,9 +70,9 @@ spec:
           ports:
             - containerPort: 2182
               name: client
-            - containerPort: 2888
+            - containerPort: 2889
               name: server
-            - containerPort: 3888
+            - containerPort: 3889
               name: election
           command: ["/conf/start-node.sh"]
           readinessProbe:
@@ -132,11 +132,11 @@ spec:
     - port: 2182
       targetPort: 2182
       name: client
-    - port: 2888
-      targetPort: 2888
+    - port: 2889
+      targetPort: 2889
       name: server
-    - port: 3888
-      targetPort: 3888
+    - port: 3889
+      targetPort: 3889
       name: election
   selector:
     app: zookeeper
@@ -153,11 +153,11 @@ spec:
     - port: 2182
       targetPort: 2182
       name: client
-    - port: 2888
-      targetPort: 2888
+    - port: 2889
+      targetPort: 2889
       name: server
-    - port: 3888
-      targetPort: 3888
+    - port: 3889
+      targetPort: 3889
       name: election
   clusterIP: None
   selector:
